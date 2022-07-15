@@ -9,11 +9,11 @@ import (
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
-func main() {
-	from := mail.NewEmail("Example User", "test@example.com")
-	subject := "Sending with Twilio SendGrid is Fun"
-	to := mail.NewEmail("Example User", "test@example.com")
-	plainTextContent := "and easy to do anywhere, even with Go"
+func sendEmail(email string, firstName string, lastName, link string) {
+	from := mail.NewEmail("Live Chat", "jasonljy1990@gmail.com")
+	subject := "Password Reset Request"
+	to := mail.NewEmail(firstName+" "+lastName, email)
+	plainTextContent := "You have received this email because a password reset request for Foodpanda account was received. The reset link will only be valid for 30mins. Click the link to reset your password: \r\n" + link
 	htmlContent := "<strong>and easy to do anywhere, even with Go</strong>"
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 	client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))

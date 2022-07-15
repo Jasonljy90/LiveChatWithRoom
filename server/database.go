@@ -143,6 +143,26 @@ func getFirstNameOfUser(userName string) string {
 	return ""
 }
 
+// get the last name of user in string type
+func getLastNameOfUser(userName string) string {
+	results, err := db.Query("SELECT * FROM MYSTOREDBFOODPANDA.Users where Username=?", userName)
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	for results.Next() {
+		var person User
+		err = results.Scan(&person.UserName, &person.Password, &person.FirstName, &person.LastName, &person.Language)
+		if err != nil {
+			fmt.Println(err)
+			return ""
+		} else {
+			return person.LastName
+		}
+	}
+	return ""
+}
+
 // hash the given password using bcrypt()
 func hashPassword(password string) []byte {
 	if hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MinCost); err != nil {

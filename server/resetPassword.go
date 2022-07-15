@@ -43,7 +43,9 @@ func resetUserPassword(email string) {
 	}
 
 	Link := "http://localhost:5221/usertoken/" + token
-	sendEmail(email, Link)
+	firstName := getFirstNameOfUser(email)
+	lastName := getLastNameOfUser(email)
+	sendEmail(email, firstName, lastName, Link)
 }
 
 func resetUserPasswordLinkClicked(res http.ResponseWriter, req *http.Request) {
